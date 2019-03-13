@@ -11,5 +11,17 @@
         <th class="col">Action</th>
         </tr>
     </thead>
-  </table>    
+    <tbody>
+    @foreach($posts as $post)
+    <tr>
+      <th scope="row">{{$post->id}}</th>
+      <td>{{$post->title}}</td>
+      <td>{{$post->description}}</td>
+      <td>{{ isset($post->user) ? $post->user->name : 'Not Found'}}</td>
+    </tr>
+    @endforeach
+
+  </tbody> 
+  </table>   
+  
 @endsection

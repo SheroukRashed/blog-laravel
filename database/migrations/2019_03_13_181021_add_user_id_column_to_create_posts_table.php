@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePosts extends Migration
+class AddUserIdColumnToCreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreatePosts extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ class CreatePosts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::table('create_posts', function (Blueprint $table) {
+            //
+        });
     }
 }
