@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\Http\Requests\posts\StorePostRequest;
 
 class PostsController extends Controller
 {
@@ -23,9 +24,9 @@ class PostsController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
-        Post::create(request()->all());
+        Post::create($request->all());
 
         return redirect()->route('posts.index');
     }
@@ -38,12 +39,12 @@ class PostsController extends Controller
         ]);
     }
 
-    public function update($id)
+    public function update(StorePostRequest $request,$id)
     {
 
         $post = Post::find($id);
-        $post->title = request()->get('title');
-        $post->description = request()->get('description');
+        $post->title = $request->get('title');
+        $post->description = $request->get('description');
         $post->user_id = $post->user_id;
         $post->save();
 
@@ -51,12 +52,19 @@ class PostsController extends Controller
     }
 
     public function destroy($id)
-{
+    {
         $post = Post::find($id);
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post has been deleted Successfully');
-}
+    }
+
+    public function show($id)
+    {
+        return view('posts.show', [
+            'post' => Post::find($id)
+        ]);
+    }
 }
 
 

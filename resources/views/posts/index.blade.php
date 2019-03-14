@@ -9,8 +9,7 @@
         <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Creator Name</th>
-        <th class="col">Action</th>
-        
+        <th scope="col">Action</th>  
         </tr>
     </thead>
     <tbody>
@@ -26,6 +25,13 @@
             @csrf
             @method('DELETE')
             <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </td>
+      <td>
+        <form action="{{ route('posts.show', $post)}}" method="post">
+            @csrf
+            @method('GET')
+            <button class="btn btn-success" type="submit">View</button>
         </form>
       </td>
     </tr>
