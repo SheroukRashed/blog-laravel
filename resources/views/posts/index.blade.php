@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<td><a href="{{route('posts.create')}}" class="btn btn-success">Add Post</a></td>
   <table class="table">
     <thead>
         <tr>
@@ -18,6 +19,14 @@
       <td>{{$post->title}}</td>
       <td>{{$post->description}}</td>
       <td>{{ isset($post->user) ? $post->user->name : 'Not Found'}}</td>
+      <td><a href="{{route('posts.edit' , $post)}}" class="btn btn-primary">Edit</a></td>
+      <td>
+        <form action="{{ route('posts.destroy', $post->id)}}" method="post">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </td>
     </tr>
     @endforeach
 
