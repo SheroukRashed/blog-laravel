@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\posts\StorePostRequest;
+use App\Http\Requests\posts\UpdatePostRequest;
 
 class PostsController extends Controller
 {
@@ -33,13 +34,14 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-       
+        $users = User::all();
         return view('posts.edit', [
             'post' => $post,
+            'users'=> $users,
         ]);
     }
 
-    public function update(StorePostRequest $request,$id)
+    public function update(UpdatePostRequest $request,$id)
     {
 
         $post = Post::find($id);
