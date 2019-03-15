@@ -11,7 +11,7 @@ class UpdatePostRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      *
      * @return bool
-     */
+     */     
     public function authorize()
     {
         return true;
@@ -25,9 +25,10 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:3|unique:posts,id,'.$this->id,
+            'title' => 'required|min:3|unique:posts,title,'.$this->post['id'],
             'description' => 'required|min:10',
-            'user_id' => 'in:posts,id,'.$this->user_id,
+            'user_id' => 'exists:posts',
+                
         ];
     }
 }

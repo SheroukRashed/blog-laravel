@@ -13,7 +13,8 @@ class PostsController extends Controller
     public function index()
     {
         return view('posts.index', [
-            'posts' => Post::all()
+           // 'posts' => Post::all()
+           'posts' => Post::with('user')->paginate(3)
         ]);
     }
 
@@ -41,14 +42,11 @@ class PostsController extends Controller
         ]);
     }
 
-    public function update(UpdatePostRequest $request,$id)
+    public function update(UpdatePostRequest $request,Post $post)
     {
 
-        $post = Post::find($id);
-        $post->title = $request->get('title');
-        $post->description = $request->get('description');
-        $post->user_id = $post->user_id;
-        $post->save();
+        $post->update($request->all());
+
 
         return redirect()->route('posts.index');
     }
